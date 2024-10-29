@@ -1,7 +1,5 @@
-#Functioning
-#CHATGPT 4 cost efficient
 import streamlit as st
-import pymupdf as fitz  # PyMuPDF
+import pymupdf as fitz
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from langchain_community.embeddings import OpenAIEmbeddings
