@@ -1,7 +1,7 @@
 #Functioning
 #CHATGPT 4 cost efficient
 import streamlit as st
-from PyPDF2 import PdfReader
+from PyPDF import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from langchain_community.embeddings import OpenAIEmbeddings
