@@ -1,7 +1,7 @@
 #Functioning
 #CHATGPT 4 cost efficient
 import streamlit as st
-from PyPDF2 import PdfReader
+import fitz  # PyMuPDF
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from langchain_community.embeddings import OpenAIEmbeddings
@@ -646,14 +646,18 @@ def show_features_page():
             st.rerun()
 
 
+# Function to extract text from multiple PDF documents using PyMuPDF
 def get_pdf_text(pdf_docs):
     text = ""
     for pdf in pdf_docs:
-        pdf_reader = PdfReader(pdf)
-        for page in pdf_reader.pages:
-            text += page.extract_text()
+        doc = fitz.open(pdf)  # Open each PDF document
+        for page_num in range(doc.page_count):
+            page = doc[page_num]
+            text += page.get_text()  # Extract text from each page
+        doc.close()  # Close the document after processing
     return text
 
+# Function to split text into chunks
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
     chunks = text_splitter.split_text(text)
